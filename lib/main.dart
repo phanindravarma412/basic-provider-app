@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final dataModel = Provider.of<DataModel>(context);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -26,21 +27,25 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Consumer<DataModel>(
-              builder: (context, dataModel, child) {
-                return RaisedButton(
-                  child: Text('Increase'),
-                  onPressed: () {
-                    dataModel.increaseValue();
-                  },
-                );
+            RaisedButton(
+              child: Text('Increase'),
+              onPressed: () {
+                dataModel.increaseValue();
               },
             ),
-            Consumer<DataModel>(
-              builder: (context, dataModel, child) {
-                return Text(dataModel.count.toString());
+            RaisedButton(
+              child: Text('decrease'),
+              onPressed: () {
+                dataModel.decreseCount();
               },
-            )
+            ),
+            RaisedButton(
+              child: Text('Reset'),
+              onPressed: (){
+                dataModel.resetCount();
+              },
+            ),
+            Text(dataModel.count.toString()),
           ],
         ),
       ),
